@@ -1,6 +1,7 @@
 import data from "../json/painting.json";
 import events from "../json/upcoming-events.json";
 import colorPickerOptions from "../json/colorPickerOptions";
+
 import { Counter } from "./Counter";
 import { Card } from "./Card";
 import { Section } from "./Section";
@@ -11,7 +12,7 @@ import { EventBoard } from "./Calendar/EventsBoard";
 import { StillCounter } from "./StillCounter";
 import { Dropdown } from "./Dropdown";
 import { Colorpicker } from "./Colorpicker";
-
+import { TodoList } from "./ToDo/TodoList";
 export const App = () => {
   return (
     <div>
@@ -26,6 +27,8 @@ export const App = () => {
       <StillCounter initialValue={0} />
       <Dropdown />
       <Colorpicker colors={colorPickerOptions} />
+
+      <TodoList />
     </div>
   );
 };
