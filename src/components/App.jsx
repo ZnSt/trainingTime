@@ -44,6 +44,7 @@ export class App extends Component {
       if (contact.name.includes(nameId)) {
         alert(`${nameId} is already been`);
       }
+      return false;
     });
   };
   render() {
