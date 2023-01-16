@@ -1,44 +1,62 @@
 import { Component } from "react";
+import shortid from "shortid";
+import contacts from "../json/contacts.json";
 
-import data from "../json/painting.json";
-import events from "../json/upcoming-events.json";
-import colorPickerOptions from "../json/colorPickerOptions";
+import { FormContacts } from "./FormContacts";
+import { ContactsList } from "./ContactsList";
+import { Filter } from "./Filter";
 
-import { Counter } from "./Counter";
-import { Card } from "./Card";
-import { Section } from "./Section";
-import { PageTitle } from "./Calendar/PageTitle";
-import { EventBoard } from "./Calendar/EventsBoard";
-
-// State and SetState
-import { StillCounter } from "./StillCounter";
-import { Dropdown } from "./Dropdown";
-import { Colorpicker } from "./Colorpicker";
-import { TodoList } from "./ToDo/TodoList";
-import { Form } from "./Form";
 export class App extends Component {
-  formSubmitHandler = (data) => {
-    console.log(data);
+  state = {
+    contacts,
+    filter: "",
+  };
+
+  addNewContact = (newName, newNumber) => {
+    const newContact = {
+      id: shortid.generate(),
+      name: newName,
+      number: newNumber,
+    };
+
+    this.setState(({ contacts }) => ({
+      contacts: [newContact, ...contacts],
+    }));
+  };
+
+  deleteContact = (id) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter((contact) => contact.id !== id),
+    }));
+  };
+
+  changeFilter = (event) => {
+    this.setState({ filter: event.currentTarget.value });
+  };
+
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter((contact) => contact.name.toLowerCase().includes(filter));
+  };
+
+  repeatContact = (nameId) => {
+    this.state.contacts.filter((contact) => {
+      if (contact.name.includes(nameId)) {
+        alert(`${nameId} is already been`);
+      }
+    });
   };
   render() {
+    const { filter } = this.state;
+    const filteredName = this.getVisibleContacts();
+
     return (
-      <div>
-        <Section title="Top Week" styles={{ textAlign: "center" }}>
-          <Card data={data} />
-          <Counter />
-        </Section>
+      <>
+        <FormContacts onSubmit={this.addNewContact} repeat={this.repeatContact} />
+        <Filter onFilter={this.changeFilter} value={filter} />
 
-        <PageTitle title="24th Core Worlds Coalitions Conference" />
-        <EventBoard events={events} />
-
-        <StillCounter initialValue={0} />
-        <Dropdown />
-        <Colorpicker colors={colorPickerOptions} />
-
-        <TodoList />
-
-        {/* <Form onSubmit={this.formSubmitHandler} /> */}
-      </div>
+        <ContactsList value={filteredName} onDelete={this.deleteContact} />
+      </>
     );
   }
 }
