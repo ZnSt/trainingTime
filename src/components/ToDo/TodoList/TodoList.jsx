@@ -1,13 +1,12 @@
 import { Component } from "react";
 import shortid from "shortid";
-import todos from "../../../json/todos.json";
 import { List } from "../List";
 import { TodoEditor } from "../TodoEditor";
 import { Filter } from "../Filter";
 
 export class TodoList extends Component {
   state = {
-    todos,
+    todos: [],
     filter: "",
   };
 
@@ -51,6 +50,20 @@ export class TodoList extends Component {
     const normalizedFilter = this.state.filter.toLowerCase();
     return this.state.todos.filter((todo) => todo.text.includes(normalizedFilter));
   };
+
+  componentDidMount() {
+    const todos = localStorage.getItem("todos");
+    const parse = JSON.parse(todos);
+    if (parse) {
+      this.setState({ todos: parse });
+    }
+  }
+  componentDidUpdate(_, prevState) {
+    const { todos } = this.state;
+    if (todos !== prevState.todos) {
+      localStorage.setItem("todos", JSON.stringify(this.state.todos));
+    }
+  }
 
   render() {
     const { todos } = this.state;

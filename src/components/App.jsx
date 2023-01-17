@@ -1,21 +1,6 @@
 import { Component } from "react";
 
-import data from "../json/painting.json";
-import events from "../json/upcoming-events.json";
-import colorPickerOptions from "../json/colorPickerOptions";
-
-import { Counter } from "./Counter";
-import { Card } from "./Card";
-import { Section } from "./Section";
-import { PageTitle } from "./Calendar/PageTitle";
-import { EventBoard } from "./Calendar/EventsBoard";
-
-// State and SetState
-import { StillCounter } from "./StillCounter";
-import { Dropdown } from "./Dropdown";
-import { Colorpicker } from "./Colorpicker";
 import { TodoList } from "./ToDo/TodoList";
-import { Form } from "./Form";
 export class App extends Component {
   formSubmitHandler = (data) => {
     console.log(data);
@@ -23,21 +8,7 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <Section title="Top Week" styles={{ textAlign: "center" }}>
-          <Card data={data} />
-          <Counter />
-        </Section>
-
-        <PageTitle title="24th Core Worlds Coalitions Conference" />
-        <EventBoard events={events} />
-
-        <StillCounter initialValue={0} />
-        <Dropdown />
-        <Colorpicker colors={colorPickerOptions} />
-
         <TodoList />
-
-        {/* <Form onSubmit={this.formSubmitHandler} /> */}
       </div>
     );
   }
