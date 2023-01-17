@@ -51,6 +51,7 @@ export class TodoList extends Component {
     const normalizedFilter = this.state.filter.toLowerCase();
     return this.state.todos.filter((todo) => todo.text.includes(normalizedFilter));
   };
+
   render() {
     const { todos } = this.state;
     const completed = todos.filter((todo) => todo.completed);
