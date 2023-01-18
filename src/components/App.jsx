@@ -1,6 +1,5 @@
 import { Component } from "react";
 import shortid from "shortid";
-import contacts from "../json/contacts.json";
 
 import { FormContacts } from "./FormContacts";
 import { ContactsList } from "./ContactsList";
@@ -8,7 +7,7 @@ import { Filter } from "./Filter";
 
 export class App extends Component {
   state = {
-    contacts,
+    contacts: [],
     filter: "",
   };
 
@@ -47,6 +46,21 @@ export class App extends Component {
       return false;
     });
   };
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
+
+  componentDidMount() {
+    const getContacts = localStorage.getItem("contacts");
+    const parseContacts = JSON.parse(getContacts);
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts });
+    }
+  }
+
   render() {
     const { filter } = this.state;
     const filteredName = this.getVisibleContacts();
