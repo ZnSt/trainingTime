@@ -1,0 +1,30 @@
+.form__style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input__style {
+  width: 500px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+input[type="text"]:hover {
+  color: red;
+  border: 2px solid #000000;
+}
+
+.btn__style {
+  position: relative;
+  width: 70px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  border-color: black;
+  margin-left: 5px;
+}
+
+.btn__style:hover {
+  background-color: #ec7c31;
+}

@@ -2,6 +2,7 @@ import { Component } from "react";
 import { ReactComponent as IconSearch } from "../svg/search.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Form.css";
 
 export class Form extends Component {
   state = {
@@ -26,24 +27,16 @@ export class Form extends Component {
   };
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="form__style">
         <input
           type="text"
           value={this.state.value}
           onChange={this.handleChangeInput}
           placeholder="Find me..."
+          className="input__style"
         />
-        <button
-          type="submit"
-          style={{
-            width: " 50px",
-            borderRadius: "5px",
-            background: "white",
-            borderColor: "black",
-            marginLeft: "5px",
-          }}
-        >
-          <IconSearch></IconSearch>
+        <button type="submit" className="btn__style">
+          <IconSearch style={{ position: "absolute", top: "8px", left: "22px" }}></IconSearch>
         </button>
       </form>
     );

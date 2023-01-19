@@ -2,11 +2,11 @@ import { Component } from "react";
 import { ToastContainer } from "react-toastify";
 
 import { Form } from "./Form";
+import { PokemonInfo } from "./PokemonInfo";
 
 export class App extends Component {
   state = {
     value: "",
-    pokemon: null,
   };
 
   handleSearchFormSubmit = (pokemonName) => {
@@ -23,7 +23,8 @@ export class App extends Component {
     return (
       <>
         <Form onSubmit={this.handleSearchFormSubmit} />
-        <ToastContainer theme="dark" />
+        <ToastContainer theme="dark " />
+        <PokemonInfo pokemonName={this.state.value} />
       </>
     );
   }
