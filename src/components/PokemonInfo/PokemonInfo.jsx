@@ -1,7 +1,7 @@
 import { Component } from "react";
 import axios from "axios";
 import { PokemonCard } from "components/PokemonCard";
-
+import { ErrorPokemon } from "components/ErrorPokemon";
 import { Loading } from "components/Loading";
 
 export class PokemonInfo extends Component {
@@ -25,12 +25,16 @@ export class PokemonInfo extends Component {
           console.log(pokemon);
           this.setState({ pokemonCustom: pokemon, status: "resolved" });
         })
-        .catch((error) => this.setState({ error, status: "rejected" }));
+        .catch((error) => {
+          console.log(error);
+          this.setState({ error, status: "rejected" });
+        });
     }
   }
 
   render() {
-    const { pokemonCustom, error, status } = this.state;
+    // ВСЯ ЛОГИКА ВЫПОЛНЕНА ЧЕРЕЗ СТЕЙТ-МАШИНУ
+    const { pokemonCustom, status } = this.state;
 
     if (status === "idle") {
       return <div style={{ textAlign: "center " }}>Я жду пока ты начнешь меня искать🙈</div>;
@@ -40,7 +44,11 @@ export class PokemonInfo extends Component {
     }
 
     if (status === "rejected") {
-      return <div>{error.response.data}</div>;
+      return (
+        <div>
+          <ErrorPokemon pokemonCustom={pokemonCustom}></ErrorPokemon>
+        </div>
+      );
     }
 
     if (status === "resolved") {
