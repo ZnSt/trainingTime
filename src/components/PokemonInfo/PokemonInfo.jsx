@@ -18,17 +18,18 @@ export class PokemonInfo extends Component {
 
     if (currName !== prevName) {
       this.setState({ status: "pending" });
-
-      axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${currName}`)
-        .then((pokemon) => {
-          console.log(pokemon);
-          this.setState({ pokemonCustom: pokemon, status: "resolved" });
-        })
-        .catch((error) => {
-          console.log(error);
-          this.setState({ error, status: "rejected" });
-        });
+      setTimeout(() => {
+        axios
+          .get(`https://pokeapi.co/api/v2/pokemon/${currName}`)
+          .then((pokemon) => {
+            console.log(pokemon);
+            this.setState({ pokemonCustom: pokemon, status: "resolved" });
+          })
+          .catch((error) => {
+            console.log(error);
+            this.setState({ error, status: "rejected" });
+          });
+      }, 5000);
     }
   }
 
