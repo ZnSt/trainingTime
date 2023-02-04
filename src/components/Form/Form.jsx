@@ -1,37 +1,36 @@
-import { Component } from "react";
+import { useState } from "react";
 import { ReactComponent as IconSearch } from "../svg/search.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Form.css";
 
-export class Form extends Component {
-  state = {
-    value: "",
-  };
-  handleSubmit = (event) => {
-    const { value } = this.state;
+export const Form = ({onSubmit}) =>  {
+  const [value, setValue] = useState('');
+
+  const handleSubmit = (event) => {
+    
     event.preventDefault();
-    if (this.state.value.trim() === "") {
+    if (value.trim() === "") {
       toast.info("Пожалуйста, введите имя покемона");
       return;
     }
-    this.props.onSubmit(value);
-    this.reset();
+    onSubmit(value);
+    reset();
   };
 
-  reset = () => {
-    this.setState({ value: "" });
+ const reset = () => {
+  setValue("");
   };
-  handleChangeInput = (event) => {
-    this.setState({ value: event.currentTarget.value });
+  const handleChangeInput = (event) => {
+    setValue(event.currentTarget.value.toLowerCase());
   };
-  render() {
+
     return (
-      <form onSubmit={this.handleSubmit} className="form__style">
+      <form onSubmit={handleSubmit} className="form__style">
         <input
           type="text"
-          value={this.state.value}
-          onChange={this.handleChangeInput}
+          value={value}
+          onChange={handleChangeInput}
           placeholder="Find me..."
           className="input__style"
         />
@@ -40,5 +39,5 @@ export class Form extends Component {
         </button>
       </form>
     );
-  }
+  
 }
