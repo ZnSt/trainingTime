@@ -17,7 +17,7 @@ export const Form = ({onSubmit}) =>  {
     onSubmit(value);
     reset();
   };
-
+ 
  const reset = () => {
   setValue("");
   };

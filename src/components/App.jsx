@@ -11,7 +11,7 @@ return (
       <>
         <Form onSubmit={setValue} />
         <ToastContainer theme="dark " />
-        <PokemonInfo pokemonName={ value} />
+        <PokemonInfo pokemonName={ value } />
       </>
     );
   }
